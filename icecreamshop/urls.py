@@ -4,9 +4,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'icecreamshop.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^$', 'shop.views.home', name='home'),
+    url(r'^github_webhook/$', 'shop.views.github_webhook', name='github_webhook'),
 
     url(r'^admin/', include(admin.site.urls)),
 )
