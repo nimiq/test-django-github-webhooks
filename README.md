@@ -9,7 +9,7 @@ Two kinds of events can be monitored:
 - [`push`](https://developer.github.com/v3/activity/events/types/#pushevent) to a specific branch;
 - creation of new [`release`](https://developer.github.com/v3/activity/events/types/#releaseevent).
 
-Possible scenarios:
+Example scenarios:
 - when new code is pushed to the `develop` branch, a new deployment to the *staging* website is
  automatically performed;
 - when a new release is created, a new deployment to the *live* website is automatically performed.
