@@ -5,6 +5,7 @@ import os
 import subprocess
 import logging
 
+from django.conf import settings
 from django.http import HttpResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -29,7 +30,10 @@ GITHUB_WEBHOOK_EVENTS = {
     'release': True,
 }
 GITHUB_WEBHOOK_PUSH_MONITORED_BRANCH = 'develop'
-GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER = os.path.abspath(os.path.join('deployment_script.sh'))
+GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER = os.path.abspath(os.path.join(settings.BASE_DIR,
+                                                                'auto_deployment_script.sh'))
+GITHUB_WEBHOOK_SCRIPT_LOG_FILE = os.path.abspath(os.path.join(settings.BASE_DIR,
+                                                              'auto_deployment_script.log'))
 
 
 @csrf_exempt
@@ -103,7 +107,8 @@ def handle_release(payload):
 
 def run_script():
     log.info('Triggering the script: {}'.format(GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER))
-    subprocess.Popen(GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER)  # maybe use the param: shell=True
+    subprocess.Popen('{} >>{} 2>&1'.format(
+        GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER, GITHUB_WEBHOOK_SCRIPT_LOG_FILE), shell=True)
 
 
 class EventNotMonitored(Exception):
