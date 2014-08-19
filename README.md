@@ -3,7 +3,7 @@ Django and GitHub Webhooks for Continuous Deployment
 
 [GitHub Webhooks](https://developer.github.com/webhooks/) are notifications sent by GitHub to
 a web server when a monitored event happens in a monitored repository.
-Webhooks are used in this sample project to implement a **continuous deployment** process.
+Webhooks are used in this *sample project* to implement a **continuous deployment** process.
 
 Monitorable Events
 ------------------

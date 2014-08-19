@@ -14,13 +14,11 @@ sv stop webapp
 echo " * Pulling new code..."
 git pull
 
-echo " * Migrating the db..."
-python manage.py migrate --noinput
-
-echo " * Collecting static files..."
-python manage.py collectstatic --noinput
-
 echo " * Starting the webapp service..."
+# During a webapp start, the script `run-webapp.sh` is run, which performs:
+# - db migration
+# - run management command `initialize_site`
+# - collect static files
 sv start webapp
 
 date=`date`

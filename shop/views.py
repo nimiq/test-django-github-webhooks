@@ -24,11 +24,11 @@ def home(request):
 
 
 # Settings (to be moved to the settings file).
-GITHUB_WEBHOOK_PASSWORD = 'mypassword'
 GITHUB_WEBHOOK_EVENTS = {
     'push': True,
     'release': True,
 }
+GITHUB_WEBHOOK_PASSWORD = 'mypassword'
 GITHUB_WEBHOOK_PUSH_MONITORED_BRANCH = 'develop'
 GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER = os.path.abspath(os.path.join(settings.BASE_DIR,
                                                                 'auto_deployment_script.sh'))
