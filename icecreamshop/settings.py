@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'shop',
+    'ghwebhookslistener',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -82,3 +83,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Log settings (to be moved to a proper log settings file).
+import logging
+log = logging.getLogger('github_webhooks')
+log.setLevel(logging.INFO)
+fh = logging.StreamHandler()
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+log.addHandler(fh)
+
+
+## Continuous deployment with GitHub Webhooks #####################################################
+# Setting all events to False will disable the continuous deployment.
+GITHUB_WEBHOOK_EVENTS = {
+    'push': True,
+    'release': True,
+}
+GITHUB_WEBHOOK_PASSWORD = 'mypassword'
+GITHUB_WEBHOOK_PUSH_MONITORED_BRANCH = 'develop'
+GITHUB_WEBHOOK_SCRIPT_TO_TRIGGER = os.path.abspath(os.path.join(BASE_DIR,
+                                                                'continuous_deployment.sh'))
+GITHUB_WEBHOOK_SCRIPT_LOG_FILE = os.path.abspath(os.path.join(BASE_DIR,
+                                                              'continuous_deployment.log'))
+###################################################################################################
